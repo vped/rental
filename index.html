@@ -1,10 +1,108 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html>
+<head lang="en">
     <meta charset="UTF-8">
-    <title>Rental Web Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Angular Admin</title>
+    <link rel="stylesheet" href="js/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="js/angular-toastr/dist/angular-toastr.min.css">
+    <link rel="stylesheet" href="assets/fonts/font-awesome/font-awesome.css">
+    <link rel="stylesheet" href="js/ng-table/dist/ng-table.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/select.min.css">
+    <link rel="stylesheet" href="assets/css/select2.css">
+    <link rel="stylesheet" href="assets/css/selectize.css">
+    <link rel="stylesheet" href="assets/flag-icon/assets/docs.css">
+    <link rel="stylesheet" href="assets/flag-icon/css/flag-icon.min.css">
+
+
+    <script src="js/jquery/dist/jquery.min.js"></script>
+    <script src="js/clipboard/dist/clipboard.min.js"></script>
+    <script src="js/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="js/angular/angular.min.js"></script>
+    <script src="js/angular-translate/angular-translate.js"></script>
+    <script src="js/angular-cookies/angular-cookies.js"></script>
+    <script src="js/angular-dynamic-locale/tmhDynamicLocale.min.js"></script>
+    <script src="js/angular-translate-handler-log/angular-translate-handler-log.min.js"></script>
+    <script src="js/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js"></script>
+    <script src="js/angular-translate-storage-cookie/angular-translate-storage-cookie.min.js"></script>
+    <script src="js/angular-translate-storage-local/angular-translate-storage-local.min.js"></script>
+    <script src="js/angular-sanitize/angular-sanitize.min.js"></script>
+    <script src="js/angular-ui-select/dist/select.min.js"></script>
+    <script src="js/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script src="js/angular-toastr/dist/angular-toastr.tpls.js"></script>
+    <script src="js/ng-table/dist/ng-table.min.js"></script>
+    <script src="js/ng-table-to-csv/dist/ng-table-to-csv.min.js"></script>
+    <script src="index.js"></script>
 </head>
-<body>
+<body ng-app="rental" ng-cloak>
+
+<nav ng-if="currentUser.name" class="navbar navbar-default" ng-controller="navbarCtrl">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#ngAdmin" aria-expanded="false">
+                <span class="sr-only"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <div class="navbar-brand" style="color: #2b669a" href="#">
+                <span style="cursor: pointer;color: black" ng-click="redirect()"><i class="fa fa-arrow-left fa-1x"></i></span>
+                <a style="margin-left: 1em;white-space: nowrap">{{title}}</a>
+            </div>
+        </div>
+
+        <div class="collapse navbar-collapse" id="ngAdmin">
+
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="javascript:void(0);"  class="dropdown-toggle fw600 p15" data-toggle="dropdown">
+                        <span><i class="fa fa-user pr5 fa-1x" style="color: black;"></i>{{"view.page.welcome"|translate}} {{currentUser.name}}</span>
+                        <span class="caret caret-tp hidden-xs"></span>
+                    </a>
+
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a id="logout" href="#/login"><i class="fa fa-power-off pr5"></i>{{"login.btn.logout"|translate}}</a></li>
+                        <li><a  href="#"><i class="fa fa-gear pr5"></i>{{"login.btn.settings"|translate}}</a></li>
+                    </ul>
+                </li>
+                <div class="nav navbar-nav navbar-right" ng-translate-language-select></div>
+            </ul>
+
+        </div>
+    </div>
+</nav>
+
+<nav ng-if="!currentUser.name" class="navbar navbar-default" ng-controller="navbarCtrl">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#notlogged" aria-expanded="false">
+                <span class="sr-only"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <div class="navbar-brand" style="color: #2b669a" href="#">
+                <a href="" style="margin-left: 1em;white-space: nowrap">{{title}}</a>
+            </div>
+        </div>
+        <div class="collapse navbar-collapse" id="notlogged">
+            <div class="nav navbar-nav navbar-right" ng-translate-language-select></div>
+        </div>
+    </div>
+</nav>
+<div  data-screen-loader ></div>
+<div ng-cloak ui-view style="height: 100%;"></div>
 
 </body>
+<script src="controllers/login.js"></script>
+<script src="controllers/navbarCtrl.js"></script>
+<script src="directive/screen-loader.js"></script>
+<script src="directive/LanguageSelectDirective.js"></script>
+<script src="factory/auth.js"></script>
+<script src="factory/apicall.js"></script>
+<script src="factory/history.js"></script>
+<script src="services/LocaleService.js"></script>
+
 </html>
